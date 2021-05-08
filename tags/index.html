@@ -45,6 +45,17 @@
   };
 </script>
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
   <title>All tags | 一朵云
 </title>
   
@@ -214,10 +225,10 @@
       <div class="post-body">
           <div class="tag-cloud">
             <div class="tag-cloud-title">
-              No tags
+              1 tag in total
             </div>
             <div class="tag-cloud-tags">
-              
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 12px; color: #ccc">工具</a>
             </div>
           </div>
         
@@ -296,6 +307,16 @@
           <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">posts</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
