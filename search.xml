@@ -1,44 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>IntelliJ IDEA常用快捷键</title>
-    <url>/2021/05/08/idea-ShortcutKey/</url>
-    <content><![CDATA[<h2 id="设置">设置</h2>
-<p>智能友好提示导入类</p>
-<p><code>Settings——&gt;Editor——&gt;General——&gt;Auto Import——&gt; [√] Add unambiguous imports on the fly</code></p>
-<h2 id="快捷键">快捷键</h2>
-<p><code>Ctrl + Shift + A</code>			搜索帮助 	   (Help)</p>
-<p><code>Shift + Shift</code>				万能搜索</p>
-<span id="more"></span>
-<p><code>Ctrl + H</code>					    全局搜索字符串 find in path</p>
-<p><code>Ctrl + Shift + T</code>			    全局搜索引入Jar包的类</p>
-<p><code>Ctrl + Shift + R</code>			    全局搜索项目中的类</p>
-<p><code>Ctrl + O</code>					    搜索方法</p>
-<p><code>Ctrl + Alt + Shift + F11</code>	    全局搜索属性/方法</p>
-<p><code>Ctrl + Shift + I</code>			    小窗口显示类细节</p>
-<p><code>Ctrl + Alt + L</code>				一键格式化代码</p>
-<p><code>Ctrl + Shift + ↑/↓</code>			当前类方法跳转 ↑ 上一个  ↓ 下一个</p>
-<p><code>Ctrl + Alt + T</code>				包裹代码至特定代码块,(try/catch)</p>
-<p><code>Ctrl + U</code>				        DeBug调试查看计算表达式</p>
-<p><code>Ctrl + T</code>					快速查看继承结构</p>
-<p><code>ESC</code>						跳入代码区</p>
-<p><code>Alt + 左边栏代号</code>			跳入对应工作区</p>
-<p><code>Ctrl + Alt + ]</code>		上一个windows窗口</p>
-<p><code>Ctrl + Alt + [</code>       下一个windows窗口</p>
-<p><code>Ctrl + E</code>					最近使用的文件 (Recent files)</p>
-<p><code>Ctrl + Shift + E</code>			最近更改的文件 (Recent changed files)</p>
-<p><code>Ctrl + Q</code>					跳转到上一次编辑的代码处</p>
-<p><code>Alt + 左箭头</code>				跳转到上一次浏览的代码处</p>
-<p><code>Alt + 右箭头</code>				跳转到下一次浏览的代码处</p>
-<p><code>Ctrl + Shift + F11</code>		为代码标记(取消)书签</p>
-<p><code>Ctrl + Shift + Alt + F11</code>	为代码标记(取消)带编号书签 , 通过 Ctrl + 编号 进行跳转</p>
-<p><code>Alt+Shift+M</code>				重复代码快速重构</p>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>IntelliJ IDEA常用快捷键</title>
+      <link href="2021/05/08/idea-ShortcutKey/"/>
+      <url>2021/05/08/idea-ShortcutKey/</url>
+      
+        <content type="html"><![CDATA[<h2 id="设置">设置</h2><p>智能友好提示导入类</p><p><code>Settings——&gt;Editor——&gt;General——&gt;Auto Import——&gt; [√] Add unambiguous imports on the fly</code></p><h2 id="快捷键">快捷键</h2><p><code>Ctrl + Shift + A</code>搜索帮助    (Help)</p><p><code>Shift + Shift</code>万能搜索</p><span id="more"></span><p><code>Ctrl + H</code>    全局搜索字符串 find in path</p><p><code>Ctrl + Shift + T</code>    全局搜索引入Jar包的类</p><p><code>Ctrl + Shift + R</code>    全局搜索项目中的类</p><p><code>Ctrl + O</code>    搜索方法</p><p><code>Ctrl + Alt + Shift + F11</code>    全局搜索属性/方法</p><p><code>Ctrl + Shift + I</code>    小窗口显示类细节</p><p><code>Ctrl + Alt + L</code>一键格式化代码</p><p><code>Ctrl + Shift + ↑/↓</code>当前类方法跳转 ↑ 上一个  ↓ 下一个</p><p><code>Ctrl + Alt + T</code>包裹代码至特定代码块,(try/catch)</p><p><code>Ctrl + U</code>        DeBug调试查看计算表达式</p><p><code>Ctrl + T</code>快速查看继承结构</p><p><code>ESC</code>跳入代码区</p><p><code>Alt + 左边栏代号</code>跳入对应工作区</p><p><code>Ctrl + Alt + ]</code>上一个windows窗口</p><p><code>Ctrl + Alt + [</code>       下一个windows窗口</p><p><code>Ctrl + E</code>最近使用的文件 (Recent files)</p><p><code>Ctrl + Shift + E</code>最近更改的文件 (Recent changed files)</p><p><code>Ctrl + Q</code>跳转到上一次编辑的代码处</p><p><code>Alt + 左箭头</code>跳转到上一次浏览的代码处</p><p><code>Alt + 右箭头</code>跳转到下一次浏览的代码处</p><p><code>Ctrl + Shift + F11</code>为代码标记(取消)书签</p><p><code>Ctrl + Shift + Alt + F11</code>为代码标记(取消)带编号书签 , 通过 Ctrl + 编号 进行跳转</p><p><code>Alt+Shift+M</code>重复代码快速重构</p>]]></content>
+      
+      
       <categories>
-        <category>工具</category>
+          
+          <category> 工具 </category>
+          
       </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
