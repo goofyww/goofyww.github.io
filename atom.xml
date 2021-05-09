@@ -6,7 +6,7 @@
   <link href="https://goofyww.github.io/atom.xml" rel="self"/>
   
   <link href="https://goofyww.github.io/"/>
-  <updated>2021-05-09T17:42:33.690Z</updated>
+  <updated>2021-05-09T18:05:40.528Z</updated>
   <id>https://goofyww.github.io/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>你好，2021 | 博客迁移记录</title>
+    <link href="https://goofyww.github.io/2021/05/10/%E4%BD%A0%E5%A5%BD%EF%BC%8C2021-%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/"/>
+    <id>https://goofyww.github.io/2021/05/10/%E4%BD%A0%E5%A5%BD%EF%BC%8C2021-%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/</id>
+    <published>2021-05-09T18:05:40.000Z</published>
+    <updated>2021-05-09T18:05:40.528Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>判断dll是32位还是64位的简单方法（实测有效）</title>
