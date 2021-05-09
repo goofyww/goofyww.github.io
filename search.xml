@@ -26,4 +26,21 @@
         <tag>工具</tag>
       </tags>
   </entry>
+  <entry>
+    <title>IntelliJ IDEA 安装过程</title>
+    <url>/2021/05/09/idea-node-2/</url>
+    <content><![CDATA[<p>Community<br>
+社区版 （免费）功能有限制</p>
+<p>Ultimate<br>
+终极版 （收费）功能无限制</p>
+<span id="more"></span>
+<p>方式一：<br>
+注册码：<a href="http://idea.lanyus.com/">http://idea.lanyus.com/</a></p>
+<p>方式二：<br>
+<a href="https://blog.csdn.net/mc_linfen/article/details/82115110">https://blog.csdn.net/mc_linfen/article/details/82115110</a></p>
+]]></content>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
 </search>

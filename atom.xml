@@ -6,7 +6,7 @@
   <link href="https://goofyww.github.io/atom.xml" rel="self"/>
   
   <link href="https://goofyww.github.io/"/>
-  <updated>2021-05-09T07:20:34.486Z</updated>
+  <updated>2021-05-09T09:13:14.886Z</updated>
   <id>https://goofyww.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>IntelliJ IDEA 安装过程</title>
+    <link href="https://goofyww.github.io/2021/05/09/idea-node-2/"/>
+    <id>https://goofyww.github.io/2021/05/09/idea-node-2/</id>
+    <published>2021-05-09T09:07:19.000Z</published>
+    <updated>2021-05-09T09:13:14.886Z</updated>
+    
+    <content type="html"><![CDATA[<p>Community<br>社区版 （免费）功能有限制</p><p>Ultimate<br>终极版 （收费）功能无限制</p><span id="more"></span><p>方式一：<br>注册码：<a href="http://idea.lanyus.com/">http://idea.lanyus.com/</a></p><p>方式二：<br><a href="https://blog.csdn.net/mc_linfen/article/details/82115110">https://blog.csdn.net/mc_linfen/article/details/82115110</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;Community&lt;br&gt;
+社区版 （免费）功能有限制&lt;/p&gt;
+&lt;p&gt;Ultimate&lt;br&gt;
+终极版 （收费）功能无限制&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="工具" scheme="https://goofyww.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>IntelliJ IDEA常用快捷键</title>
