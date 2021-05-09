@@ -6,7 +6,7 @@
   <link href="https://goofyww.github.io/atom.xml" rel="self"/>
   
   <link href="https://goofyww.github.io/"/>
-  <updated>2021-05-09T14:58:43.023Z</updated>
+  <updated>2021-05-09T17:06:10.371Z</updated>
   <id>https://goofyww.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>判断dll是32位还是64位的简单方法（实测有效）</title>
+    <link href="https://goofyww.github.io/2021/05/09/%E5%88%A4%E6%96%ADdll%E6%98%AF32%E4%BD%8D%E8%BF%98%E6%98%AF64%E4%BD%8D%E7%9A%84%E7%AE%80%E5%8D%95%E6%96%B9%E6%B3%95%EF%BC%88%E5%AE%9E%E6%B5%8B%E6%9C%89%E6%95%88%EF%BC%89/"/>
+    <id>https://goofyww.github.io/2021/05/09/%E5%88%A4%E6%96%ADdll%E6%98%AF32%E4%BD%8D%E8%BF%98%E6%98%AF64%E4%BD%8D%E7%9A%84%E7%AE%80%E5%8D%95%E6%96%B9%E6%B3%95%EF%BC%88%E5%AE%9E%E6%B5%8B%E6%9C%89%E6%95%88%EF%BC%89/</id>
+    <published>2021-05-09T15:08:29.000Z</published>
+    <updated>2021-05-09T17:06:10.371Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>简便方法：</strong></p><p>直接用记事本或者notepad++打开exe文件（dll文件），会有很多乱码，不要头疼，接下来只需要在第二段中找到PE两个字母，在其后的不远出会出现d? 或者L。若是d，则证明该程序是64位；若是L，则证明是32位。</p><p><img src="https://i.loli.net/2021/05/10/j3OEvpbdJ5DMFeG.png" alt="image.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;简便方法：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;直接用记事本或者notepad++打开exe文件（dll文件），会有很多乱码，不要头疼，接下来只需要在第二段中找到PE两个字母，在其后的不远出会出现d? 或者L。若是d，则证明该程序是64位；若是L，则证明是32位</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Gradle 的一些常用命令</title>
