@@ -18,16 +18,12 @@
 <td>Maven项目转换Gradle(在需要转换的根目录下执行此命令)</td>
 </tr>
 <tr>
-<td><code>$ gradle build -x test</code></td>
-<td>gradle 跳过测试直接编译</td>
+<td><code>$ gradle init --type java-application</code></td>
+<td>创建一个gradle Demo的项目</td>
 </tr>
 <tr>
 <td><code>$ gradle idea</code></td>
 <td>根据build.gradle和setting.gradle文件生成idea项目</td>
-</tr>
-<tr>
-<td><code>$ gradle init --type java-application</code></td>
-<td>创建一个gradle Demo的项目</td>
 </tr>
 <tr>
 <td><code>$ gradle tasks --all</code></td>
@@ -39,7 +35,7 @@
 </tr>
 <tr>
 <td><code>$ gradle build -x test</code></td>
-<td>只构建不执行单元测试</td>
+<td>gradle 跳过测试直接编译</td>
 </tr>
 <tr>
 <td><code>$ gradle test</code></td>
