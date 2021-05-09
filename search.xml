@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Gradle 的一些常用命令</title>
+    <url>/2021/05/09/Gradle-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<p>笔者之前在掘金上记录的一些关于Gradle的常用命令</p>
+<span id="more"></span>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ gradle init --type pom</code></td>
+<td>Maven项目转换Gradle(在需要转换的根目录下执行此命令)</td>
+</tr>
+<tr>
+<td><code>$ gradle build -x test</code></td>
+<td>gradle 跳过测试直接编译</td>
+</tr>
+<tr>
+<td><code>$ gradle idea</code></td>
+<td>根据build.gradle和setting.gradle文件生成idea项目</td>
+</tr>
+<tr>
+<td><code>$ gradle init --type java-application</code></td>
+<td>创建一个gradle Demo的项目</td>
+</tr>
+<tr>
+<td><code>$ gradle tasks --all</code></td>
+<td>查看此项目有哪些任务如上，但上面的命令只能看到有group的，如果查看全部的任务需要使用参数all</td>
+</tr>
+<tr>
+<td><code>$ gradle build</code></td>
+<td>构建并单元测试</td>
+</tr>
+<tr>
+<td><code>$ gradle build -x test</code></td>
+<td>只构建不执行单元测试</td>
+</tr>
+<tr>
+<td><code>$ gradle test</code></td>
+<td>执行单元测试</td>
+</tr>
+<tr>
+<td><code>$ gradle run</code></td>
+<td>运行</td>
+</tr>
+<tr>
+<td><code>$ gradle clean</code></td>
+<td>删除build目录</td>
+</tr>
+<tr>
+<td><code>$ gradle jar</code></td>
+<td>打jar包</td>
+</tr>
+<tr>
+<td><code>$ gradle clean war</code></td>
+<td>打war包</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>运维</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>IntelliJ IDEA常用快捷键</title>
     <url>/2021/05/08/idea-node-1/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
@@ -39,6 +110,9 @@
 <p>方式二：<br>
 <a href="https://blog.csdn.net/mc_linfen/article/details/82115110">https://blog.csdn.net/mc_linfen/article/details/82115110</a></p>
 ]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
       <tags>
         <tag>工具</tag>
       </tags>
