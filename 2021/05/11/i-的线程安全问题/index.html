@@ -31,15 +31,20 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="沧海一声笑__">
-<meta property="og:url" content="https://goofyww.github.io/tags/%E8%BF%90%E7%BB%B4/index.html">
+  <meta name="description" content="① 方法一 使用 AtomicXX 系列的包装类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="i++ 的线程安全问题">
+<meta property="og:url" content="https://goofyww.github.io/2021/05/11/i-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="沧海一声笑__">
+<meta property="og:description" content="① 方法一 使用 AtomicXX 系列的包装类">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-10T17:55:51.000Z">
+<meta property="article:modified_time" content="2021-05-10T17:58:31.571Z">
 <meta property="article:author" content="goofyww">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://goofyww.github.io/tags/%E8%BF%90%E7%BB%B4/">
+<link rel="canonical" href="https://goofyww.github.io/2021/05/11/i-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/">
 
 
 <script id="page-configurations">
@@ -47,12 +52,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: 运维 | 沧海一声笑__</title>
+  <title>i++ 的线程安全问题 | 沧海一声笑__</title>
   
 
 
@@ -194,57 +199,140 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">运维
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://goofyww.github.io/2021/05/11/i-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="goofyww">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沧海一声笑__">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          i++ 的线程安全问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-11 01:55:51 / 修改时间：01:58:31" itemprop="dateCreated datePublished" datetime="2021-05-11T01:55:51+08:00">2021-05-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+        <ul>
+<li>① 方法一<br>
+使用 <code>AtomicXX</code> 系列的包装类</li>
+</ul>
+<span id="more"></span>
+<ul>
+<li>
+<p>② 方法二<br>
+使用 <code>synchronized</code> 针对 i 的 写操作进行加锁</p>
+</li>
+<li>
+<p>③ 方法三<br>
+使用无锁编程 CAS 的方式</p>
+</li>
+</ul>
+<p>注：<code>volatile</code> 解决了线程间共享变量的可见性问题，使用 <code>volatile</code> 会增加性能开销，<code>volatile</code> 并不能解决线程同步问题。</p>
+<p>加锁的同时也会增加性能开销。</p>
+
+     <div>
+	
+	 <div>
+    
+	<br/>
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+        
+     </div>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+        
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-05-09T19:14:27+08:00"
-              content="2021-05-09">
-          05-09
-        </time>
-      </div>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>goofyww
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://goofyww.github.io/2021/05/11/i-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" title="i++ 的线程安全问题">https://goofyww.github.io/2021/05/11/i-的线程安全问题/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/05/09/Gradle%20%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" itemprop="url">
-            <span itemprop="name">Gradle的一些常用命令</span>
-          </a>
-      </div>
 
-    </header>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i>Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/11/VMware-VMware-workstation-%E4%B8%8E-VMware-Vsphere-client-%E8%99%9A%E6%8B%9F%E6%9C%BA-v2v/" rel="prev" title="VMware- VMware workstation 与 VMware Vsphere client 虚拟机 v2v">
+      <i class="fa fa-chevron-left"></i> VMware- VMware workstation 与 VMware Vsphere client 虚拟机 v2v
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -431,6 +519,25 @@ document.querySelectorAll('.pdfobject-container').forEach(element => {
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '27d873242ba5f760f242',
+      clientSecret: '5820bbee980a4d2ca998faf1ba6de7dbc4c81a90',
+      repo        : 'goofyww.github.io',
+      owner       : 'goofyww',
+      admin       : ['goofyww'],
+      id          : 'f37ef1eb2003f25a30c8f9d76afbc0db',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>
