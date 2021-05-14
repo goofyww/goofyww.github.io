@@ -235,6 +235,18 @@ IntelliJ IDEA 2020最新激活码（亲测有效，可激活至 2089 年，持�
       </tags>
   </entry>
   <entry>
+    <title>linux下 cat grep快速查找内容</title>
+    <url>/2021/05/14/linux%E4%B8%8B-cat-grep%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BE%E5%86%85%E5%AE%B9/</url>
+    <content><![CDATA[<p>部署在Linux下的程序，日志很多，而且实时滚动，可以通过以下方式快速查找自己自己想要的内容：</p>
+<p>cat log.txt | grep ‘ERROR’ -A 5</p>
+<span id="more"></span>
+<p>意思是，在log.txt文件中，查找ERROR字符，并显示ERROR所在行的之后5行</p>
+<p>cat log.txt | grep ‘ERROR’ -B 5  之前5行</p>
+<p>cat log.txt | grep ‘ERROR’ -C 5 前后5行</p>
+<p>cat log.txt | grep -v ‘ERROR’ 排除ERROR所在的行</p>
+]]></content>
+  </entry>
+  <entry>
     <title>你好，2021 | 博客迁移记录</title>
     <url>/2021/05/10/%E4%BD%A0%E5%A5%BD%EF%BC%8C2021-%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<p>一直在考虑建立属于自己的博客网站，用于记录工作和生活，如今得偿所愿。也幸好在其他平台上记录了些琐碎经历，故本文记录一下掘金博文迁移记录～</p>
