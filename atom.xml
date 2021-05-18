@@ -6,7 +6,7 @@
   <link href="https://goofyww.github.io/atom.xml" rel="self"/>
   
   <link href="https://goofyww.github.io/"/>
-  <updated>2021-05-18T18:21:40.306Z</updated>
+  <updated>2021-05-18T18:27:03.063Z</updated>
   <id>https://goofyww.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>群友面经-去哪儿网一面</title>
+    <link href="https://goofyww.github.io/2021/05/19/%E7%BE%A4%E5%8F%8B%E9%9D%A2%E7%BB%8F-%E5%8E%BB%E5%93%AA%E5%84%BF%E7%BD%91%E4%B8%80%E9%9D%A2/"/>
+    <id>https://goofyww.github.io/2021/05/19/%E7%BE%A4%E5%8F%8B%E9%9D%A2%E7%BB%8F-%E5%8E%BB%E5%93%AA%E5%84%BF%E7%BD%91%E4%B8%80%E9%9D%A2/</id>
+    <published>2021-05-18T18:24:31.000Z</published>
+    <updated>2021-05-18T18:27:03.063Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>先自我介绍一下</li><li>介绍一下 你们的项目，项目的用户量，qps，以及项目的难点在哪儿</li><li>我看你用了nginx + redis + echache做了三级缓存，你们是怎么做的？存了哪些数？怎么存的？</li></ol><span id="more"></span><ol start="4"><li><p>本地缓存存了什么数据？用的是什么东西？具体的存储方案是是什么？nginx存了什么？redis呢？</p></li><li><p>echache存了售电公司的基础信息，如果信息变更的话，你是怎么更新echache缓存的（本地缓存的更新方式，以及基于MQ的广播模式通知各个服务更新缓存）？套餐数据变化怎么更新redis的？如果缓存出现了不一致怎么办，就是入库的时候，先删除缓存，再更新数据库，此时来了一个请求，获取数据，然后放缓存里面，你数据库更新完，再去更新redis的时候，就出现了不一致，怎么解决？</p></li><li><p>你用了RocketMQ是吧？为啥要用RocketMQ？为什么选择它？（我从技术对比，高阶功能，MQ的性能优化方面答了一下）</p></li><li><p>你说RocketMQ的事务消息机制？它是怎么实现的？能不能回滚？（这个没答好，因为有点记不清楚了，所以面试的时候，要往自己会的方向引，我这个就是错误案例）</p></li><li><p>ThreadLocal了解吗？说说他的原理和组成？（答了它的作用，怎么实现的，弱引用，entryMap这些）如果一个线程内部，又开了一个线程，能不能获取到前面那个线程的ThreadLocal值？（我说不能）如果我想获取它的值，要怎么实现？（这个没答上来）</p></li><li><p>那我们问问其他的吧，我看你对并发深入了解，说说volatile的原理吧？（从CPU，高速缓存，MESI协议，lock前缀指令，内存屏障这个思路讲）它解决了什么问题？（讲到了内存屏障以后，他还没听到禁止指令重排）</p></li><li><p>对synchronized了解吗？说说他的基本原理吧？（答了对象头，monitor锁，monitor锁的结构等）锁升级刚提到，就打断了（估计是看看我知道，就不用再问了），他和reentrantLock有啥区别？（重入，公平非公平这方面）什么时候选择synchronized锁，什么时候选择reentrantLock？（我是从常规写多，和读多写少需要分离这个角度说的）</p></li><li><p>我看你说了分布式事务，你们是怎么做的分布式事务？（用的ByteTCC+可靠消息投递+最大努力通知我主动说了ByteTCC的源码和原理，调用链，提交，回滚机制，就没继续问ByteTCC了）还了解过其他的分布式事务吗？（saga,xa分布式事务分别说了一下场景和适用范围）</p></li><li><p>我看你写了zookeeper，了解zookeeper的使用场景和原理吗？（我说只是用来curator框架做分布式锁，其他的没有深入了解过）</p></li><li><p>我看你对数据库了解的挺多的，针对数据库有作过什么优化？（说了进行了索引重建，基于常用的查询条件制定了sql编写原则，说了分库分表，把表分成了2个物理机，8个库，每个库16张表）如果我有一条select a from table1 where a &gt; x order by b desc，对a和b各自创建了两个索引，这条sql会命中哪一个索引，另外一个场景select a from table1 where a &gt; x b&lt;y order by b desc?（没答上来）</p></li><li><p>说一下一条update语句到达mysql引擎之后会做哪些事？（从判断数据是否在缓存，加载数据页，到undolog，redolog，binglog日志文件和位置，commit标记整个流程回答了一下）</p></li><li><p>对JVM也有一定了解是吧？说一下JVM的原理有哪些了解？（有点开放性的东西，会根据你说的方面去问一些东西，我回答了内存分区这方面的东西）知道有哪些垃圾回收器吗各自的特点和适用场景是什么（回答了CMS+Parnew+G1的特点，还有哪些系统适合G1）？你们用的哪个，为什么用这个（说了一下cms + parnew）？（回答了内存小CMS +Parnew）如果有更小的内存呢，比如2G的机器，适合什么回收器？（没答上来，不记得还有啥更小更适合的回收器了）栈里面有什么东西了解吗？怎么优化栈内存？（从组成结构，栈的大小，512k，1M这个角度答的，如果方法调用链比较深的系统，可以考虑增大栈的空间和线程的内存大小）</p></li><li><p>有没有遇到过线上问题？</p><p>答的是，有，遇到过一次CPU彪满的情况。场景是，后台结算系统在调用服务，抽了一大堆数据，达到百万级，这个时候刚好有用户在请求一些其他的数据，也是百万级，并且代码写的不好，在list里面疯狂add，导致不断扩容扩容扩容，就导致内存差点儿溢出，大部分请求直接hang死了。</p></li><li><p>有没有什么问题要问我的？</p><ol><li>本次面试，我的优势点和缺点？<br>优势：技术点的原理，理解程度都还挺不错的，表达，逻辑也都不错。<br>劣势：有些地方不需要解释的太详细，大概说一下原理，机制，和思路就可以了。</li><li>如果能进公司的话，公司的业务方向和晋升？<br>国际酒店业务，晋升的话，一年两次答辩，自己写PPT，讲解。</li><li>如果我后面要继续面试，或者适应公司的工作的话，公司有哪些技术挑战，需要往哪方面做技术储备？<br>做的东西还是偏向于业务方面，技术挑战倒是没太多的技术挑战，如果要储备的话，不管是工作还是面试，接下来考察的比较侧重的是架构设计和一些算法。主要是架构设计方面。</li></ol></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;先自我介绍一下&lt;/li&gt;
+&lt;li&gt;介绍一下 你们的项目，项目的用户量，qps，以及项目的难点在哪儿&lt;/li&gt;
+&lt;li&gt;我看你用了nginx + redis + echache做了三级缓存，你们是怎么做的？存了哪些数？怎么存的？&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>（坑）Spring Boot使用事务不起作用</title>
@@ -397,29 +418,6 @@
     
     
     <summary type="html">本篇为加密文章，请输入密码进行查看.</summary>
-    
-    
-    
-    <category term="工具" scheme="https://goofyww.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="工具" scheme="https://goofyww.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IntelliJ IDEA常用快捷键</title>
-    <link href="https://goofyww.github.io/2021/05/08/IntelliJ%20IDEA%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
-    <id>https://goofyww.github.io/2021/05/08/IntelliJ%20IDEA%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</id>
-    <published>2021-05-08T05:15:28.000Z</published>
-    <updated>2021-05-16T15:58:44.972Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="设置">设置</h2><p>智能友好提示导入类</p><p><code>Settings——&gt;Editor——&gt;General——&gt;Auto Import——&gt; [√] Add unambiguous imports on the fly</code></p><span id="more"></span><h2 id="快捷键">快捷键</h2><ul><li>mac版</li></ul><table><thead><tr><th>键位</th><th>描述</th></tr></thead><tbody><tr><td><code>command/⌘ + shift/⏏︎ + A</code></td><td>搜索帮助    (Help)</td></tr><tr><td><code>shift/⏏︎ + shift/⏏︎</code></td><td>万能搜索</td></tr><tr><td><code>command/⌘ + shift/⏏︎ + T</code></td><td>创建单元测试</td></tr><tr><td><code>command/⌘ + option/⌥ + T</code></td><td>包裹代码至特定代码块,(try/catch)</td></tr><tr><td><code>command/⌘ + option/⌥ + M</code></td><td>提取方法(Extract Method)</td></tr><tr><td><code>command/⌘ + shift/⏏︎ + R</code></td><td>全局搜索项目中的类</td></tr><tr><td><code>command/⌘ + option/⌥ + L</code></td><td>一键格式化代码</td></tr><tr><td><code>command/⌘ + shift/⏏︎ + ↑/↓</code></td><td>上下移动选中的代码</td></tr><tr><td><code>command/⌘ + shift/⏏︎ + U</code></td><td>大小写格式化选中的代码</td></tr><tr><td><code>command/⌘ + 左边栏代号</code></td><td>跳入对应工作区</td></tr><tr><td><code>command/⌘ + [</code></td><td>上一个windows窗口</td></tr><tr><td><code>command/⌘ + ]</code></td><td>下一个windows窗口</td></tr><tr><td><code>command/⌘ + E</code></td><td>最近使用的文件 (Recent files)</td></tr><tr><td><code>ESC</code></td><td>跳入代码区</td></tr><tr><td><code>fn + F3</code></td><td>为代码标记(取消)书签</td></tr><tr><td><code>option/⌥ + fn + F3</code></td><td>为代码标记(取消)带编号书签 , 通过 <code>control/⌃</code> + 编号 进行跳转</td></tr></tbody></table><ul><li>win版</li></ul><table><thead><tr><th>键位</th><th>描述</th></tr></thead><tbody><tr><td><code>Ctrl + Shift + A</code></td><td>搜索帮助    (Help)</td></tr><tr><td><code>Shift + Shift</code></td><td>万能搜索</td></tr><tr><td><code>Ctrl + H</code></td><td>全局搜索字符串 find in path</td></tr><tr><td><code>Ctrl + Shift + T</code></td><td>全局搜索引入Jar包的类</td></tr><tr><td><code>Ctrl + Shift + R</code></td><td>全局搜索项目中的类</td></tr><tr><td><code>Ctrl + O</code></td><td>搜索方法</td></tr><tr><td><code>Ctrl + Alt + Shift + F11</code></td><td>全局搜索属性/方法</td></tr><tr><td><code>Ctrl + Shift + I</code></td><td>小窗口显示类细节</td></tr><tr><td><code>Ctrl + Alt + L</code></td><td>一键格式化代码</td></tr><tr><td><code>Ctrl + Shift + ↑/↓</code></td><td>当前类方法跳转 ↑ 上一个  ↓ 下一个</td></tr><tr><td><code>Ctrl + Alt + T</code></td><td>包裹代码至特定代码块,(try/catch)</td></tr><tr><td><code>Ctrl + U</code></td><td>DeBug调试查看计算表达式</td></tr><tr><td><code>Ctrl + T</code></td><td>快速查看继承结构</td></tr><tr><td><code>ESC</code></td><td>跳入代码区</td></tr><tr><td><code>Alt + 左边栏代号</code></td><td>跳入对应工作区</td></tr><tr><td><code>Ctrl + Alt + ]</code></td><td>下一个windows窗口</td></tr><tr><td><code>Ctrl + Alt + [</code></td><td>上一个windows窗口</td></tr><tr><td><code>Ctrl + E</code></td><td>最近使用的文件 (Recent files)</td></tr><tr><td><code>Ctrl + Shift + E</code></td><td>最近更改的文件 (Recent changed files)</td></tr><tr><td><code>Ctrl + Q</code></td><td>跳转到上一次编辑的代码处</td></tr><tr><td><code>Alt + 左箭头</code></td><td>跳转到上一次浏览的代码处</td></tr><tr><td><code>Alt + 右箭头</code></td><td>跳转到下一次浏览的代码处</td></tr><tr><td><code>Ctrl + Shift + F11</code></td><td>为代码标记(取消)书签</td></tr><tr><td><code>Ctrl + Shift + Alt + F11</code></td><td>为代码标记(取消)带编号书签 , 通过 Ctrl + 编号 进行跳转</td></tr><tr><td><code>Alt+Shift+M</code></td><td>重复代码快速重构</td></tr></tbody></table>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;设置&quot;&gt;设置&lt;/h2&gt;
-&lt;p&gt;智能友好提示导入类&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Settings——&amp;gt;Editor——&amp;gt;General——&amp;gt;Auto Import——&amp;gt; [√] Add unambiguous imports on the fly&lt;/code&gt;&lt;/p&gt;</summary>
     
     
     
