@@ -537,77 +537,131 @@ java8 新特性，用它来<strong>封装可能为空的引用，防止空指针
 <h3 id="二-什么是窗口函数？">二.什么是窗口函数？</h3>
 <p>窗口函数，也叫OLAP函数（Online Anallytical Processing，联机分析处理），可以对数据库数据进行实时分析处理。</p>
 <p>窗口函数的基本语法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;窗口函数&gt; over (partition by &lt;用于分组的列名&gt;</span><br><span class="line">                order by &lt;用于排序的列名&gt;)</span><br><span class="line">```               </span><br><span class="line"></span><br><span class="line">那么语法中的&lt;窗口函数&gt;都有哪些呢？</span><br><span class="line"></span><br><span class="line">`&lt;窗口函数&gt;` 的位置，可以放以下两种函数：</span><br><span class="line"></span><br><span class="line">* 专用窗口函数，包括后面要讲到的`rank`, `dense_rank`, `row_number` 等专用窗口函数。</span><br><span class="line"></span><br><span class="line">* 聚合函数，如`sum`, `avg`, `count`, `max`, `min` 等</span><br><span class="line"></span><br><span class="line">因为窗口函数是对where或者group by子句处理后的结果进行操作，所以窗口函数原则上只能写在select子句中。</span><br><span class="line"></span><br><span class="line">### 三.如何使用？</span><br><span class="line"></span><br><span class="line">接下来，就结合实例，给大家介绍几种窗口函数的用法。</span><br><span class="line"></span><br><span class="line">#### 1.专用窗口函数`rank`</span><br><span class="line"></span><br><span class="line">例如下图，是班级表中的内容</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526013546.png)</span><br><span class="line"></span><br><span class="line">如果我们想在每个班级内按成绩排名，得到下面的结果。</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526013642.jpeg)</span><br><span class="line"></span><br><span class="line">以班级“1”为例，这个班级的成绩“95”排在第1位，这个班级的“83”排在第4位。上面这个结果确实按我们的要求在每个班级内，按成绩排名了。</span><br><span class="line"></span><br><span class="line">得到上面结果的sql语句代码如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>select *,<br>
-rank() over (partition by 班级<br>
-order by 成绩 desc) as ranking<br>
-from 班级表</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">我们来解释下这个sql语句里的 `select子句` 。 `rank` 是排序的函数。要求是“每个班级内按成绩排名”，这句话可以分为两部分：</span><br><span class="line"></span><br><span class="line">1. 每个班级内：按班级分组</span><br><span class="line"></span><br><span class="line">`partition by` 用来对表分组。在这个例子中，所以我们指定了按“班级”分组（`partition by 班级`）</span><br><span class="line"></span><br><span class="line">2. 按成绩排名</span><br><span class="line"></span><br><span class="line">`order by` 子句的功能是对分组后的结果进行排序，默认是按照升序（`asc`）排列。在本例中（`order by 成绩 desc`）是按成绩这一列排序，加了desc关键词表示降序排列。</span><br><span class="line"></span><br><span class="line">通过下图，我们就可以理解`partiition by`（分组）和`order by`（在组内排序）的作用了。</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014100.jpeg)</span><br><span class="line"></span><br><span class="line">窗口函数具备了我们之前学过的`group by`子句分组的功能和`order by`子句排序的功能。那么，为什么还要用窗口函数呢？</span><br><span class="line"></span><br><span class="line">这是因为，`group by`分组汇总后改变了表的行数，一行只有一个类别。而`partiition by`和`rank`函数不会减少原表中的行数。例如下面统计每个班级的人数。</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014228.jpeg)</span><br><span class="line"></span><br><span class="line">相信通过这个例子，你已经明白了这个窗口函数的使用：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>select *,<br>
-rank() over (partition by 班级<br>
-order by 成绩 desc) as ranking<br>
-from 班级表</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">现在我们说回来，为什么叫“窗口”函数呢？这是因为partition by分组后的结果称为“窗口”，这里的窗口不是我们家里的门窗，而是表示“范围”的意思。</span><br><span class="line"></span><br><span class="line">** 简单来说，窗口函数有以下功能：**</span><br><span class="line"></span><br><span class="line">* 同时具有分组和排序的功能</span><br><span class="line"></span><br><span class="line">* 不减少原表的行数</span><br><span class="line"></span><br><span class="line">语法如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>&lt;窗口函数&gt; over (partition by &lt;用于分组的列名&gt;<br>
-order by &lt;用于排序的列名&gt;)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 其他专业窗口函数</span><br><span class="line"></span><br><span class="line">专用窗口函数 `rank`, `dense_rank`, `row_number` 有什么区别呢？</span><br><span class="line"></span><br><span class="line">它们的区别我举个例子，你们一下就能看懂：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>select *,<br>
-rank() over (order by 成绩 desc) as ranking,<br>
-dense_rank() over (order by 成绩 desc) as dese_rank,<br>
-row_number() over (order by 成绩 desc) as row_num<br>
-from 班级表</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">得到结果：</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014556.png)</span><br><span class="line"></span><br><span class="line">从上面的结果可以看出：</span><br><span class="line"></span><br><span class="line">`rank` 函数：这个例子中是5位，5位，5位，8位，也就是如果有并列名次的行，会占用下一名次的位置。比如正常排名是1，2，3，4，但是现在前3名是并列的名次，结果是：1，1，1，4。</span><br><span class="line"></span><br><span class="line">`dense_rank` 函数：这个例子中是5位，5位，5位，6位，也就是如果有并列名次的行，不占用下一名次的位置。比如正常排名是1，2，3，4，但是现在前3名是并列的名次，结果是：1，1，1，2。</span><br><span class="line"></span><br><span class="line">`row_number` 函数：这个例子中是5位，6位，7位，8位，也就是不考虑并列名次的情况。比如前3名是并列的名次，排名是正常的1，2，3，4。</span><br><span class="line"></span><br><span class="line">这三个函数的区别如下：</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014717.png)</span><br><span class="line"></span><br><span class="line">最后，需要强调的一点是：在上述的这三个专用窗口函数中，函数后面的括号不需要任何参数，保持()空着就可以。</span><br><span class="line"></span><br><span class="line">现在，大家对窗口函数有一个基本了解了吗？</span><br><span class="line"></span><br><span class="line">#### 3.聚合函数作为窗口函数</span><br><span class="line"></span><br><span class="line">聚和窗口函数和上面提到的专用窗口函数用法完全相同，只需要把聚合函数写在窗口函数的位置即可，但是函数后面括号里面不能为空，需要指定聚合的列名。</span><br><span class="line"></span><br><span class="line">我们来看一下窗口函数是聚合函数时，会出来什么结果：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>select *,<br>
-sum(成绩) over (order by 学号) as current_sum,<br>
-avg(成绩) over (order by 学号) as current_avg,<br>
-count(成绩) over (order by 学号) as current_count,<br>
-max(成绩) over (order by 学号) as current_max,<br>
-min(成绩) over (order by 学号) as current_min<br>
-from 班级表</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">得到结果：</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014828.jpeg)</span><br><span class="line"></span><br><span class="line">有发现什么吗？我单独用sum举个例子：</span><br><span class="line"></span><br><span class="line">如上图，聚合函数 `sum` 在窗口函数中，是对自身记录、及位于自身记录以上的数据进行求和的结果。比如0004号，在使用 `sum` 窗口函数后的结果，是对0001，0002，0003，0004号的成绩求和，若是0005号，则结果是0001号~0005号成绩的求和，以此类推。</span><br><span class="line"></span><br><span class="line">不仅是 `sum` 求和，平均、计数、最大最小值，也是同理，都是针对自身记录、以及自身记录之上的所有数据进行计算，现在再结合刚才得到的结果（下图），是不是理解起来容易多了？</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">比如0005号后面的聚合窗口函数结果是：学号0001~0005五人成绩的总和、平均、计数及最大最小值。</span><br><span class="line"></span><br><span class="line">如果想要知道所有人成绩的总和、平均等聚合结果，看最后一行即可。</span><br><span class="line"></span><br><span class="line">**这样使用窗口函数有什么用呢？**</span><br><span class="line"></span><br><span class="line">聚合函数作为窗口函数，可以在每一行的数据里直观的看到，截止到本行数据，统计数据是多少（最大值、最小值等）。同时可以看出每一行数据，对整体统计数据的影响。</span><br><span class="line"></span><br><span class="line">### 四.注意事项</span><br><span class="line"></span><br><span class="line">`partition` 子句可以省略，省略就是不指定分组，结果如下，只是按成绩由高到低进行了排序：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>select *,<br>
-rank() over (order by 成绩 desc) as ranking<br>
-from 班级表</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">得到结果：</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526015107.jpeg)</span><br><span class="line"></span><br><span class="line">但是，这就失去了窗口函数的功能，所以一般不要这么使用。</span><br><span class="line"></span><br><span class="line">### 五.总结</span><br><span class="line">#### 1.窗口函数语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>&lt;窗口函数&gt; over (partition by &lt;用于分组的列名&gt;<br>
-order by &lt;用于排序的列名&gt;)<br>
-&lt;窗口函数&gt;的位置，可以放以下两种函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">1. 专用窗口函数，比如rank,dense_rank,row_number等</span><br><span class="line">2. 聚合函数，如sum. avg, count,max, min等</span><br><span class="line"></span><br><span class="line">#### 2.窗口函数有以下功能：</span><br><span class="line"></span><br><span class="line">1. 同时具有分组（partition by）和排序（order by）的功能</span><br><span class="line"></span><br><span class="line">2. 不减少原表的行数，所以经常用来在每组内排名</span><br><span class="line"></span><br><span class="line">#### 3.注意事项</span><br><span class="line"></span><br><span class="line">**窗口函数原则上只能写在select子句中**</span><br><span class="line"></span><br><span class="line">#### 4.窗口函数使用场景</span><br><span class="line"></span><br><span class="line">* 业务需求“在每组内排名”，比如：</span><br><span class="line"></span><br><span class="line">排名问题：每个部门按业绩来排名</span><br><span class="line">topN问题：找出每个部门排名前N的员工进行奖励</span><br><span class="line"></span><br><span class="line">##### 实例</span><br><span class="line"></span><br><span class="line">**184.部门工资最高的员工**</span><br><span class="line"></span><br><span class="line">`Employee` 表包含所有员工信息，每个员工有其对应的 Id, salary 和 department Id。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>±—±------±-------±-------------+<br>
-| Id | Name  | Salary | DepartmentId |<br>
-±—±------±-------±-------------+<br>
-| 1  | Joe   | 70000  | 1            |<br>
-| 2  | Jim   | 90000  | 1            |<br>
-| 3  | Henry | 80000  | 2            |<br>
-| 4  | Sam   | 60000  | 2            |<br>
-| 5  | Max   | 90000  | 1            |<br>
-±—±------±-------±-------------+</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">`Department` 表包含公司所有部门的信息。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>±—±---------+<br>
-| Id | Name     |<br>
-±—±---------+<br>
-| 1  | IT       |<br>
-| 2  | Sales    |<br>
-±—±---------+</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">编写一个 SQL 查询，找出每个部门工资最高的员工。对于上述表，您的 SQL 查询应返回以下行（行的顺序无关紧要）。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>±-----------±---------±-------+<br>
-| Department | Employee | Salary |<br>
-±-----------±---------±-------+<br>
-| IT         | Max      | 90000  |<br>
-| IT         | Jim      | 90000  |<br>
-| Sales      | Henry    | 80000  |<br>
-±-----------±---------±-------+</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**解释：**</span><br><span class="line"></span><br><span class="line">&gt; Max 和 Jim 在 IT 部门的工资都是最高的，Henry 在销售部的工资最高</span><br><span class="line"></span><br><span class="line">##### 题解</span><br><span class="line"></span><br><span class="line">经典topN问题：每组最大的N条记录。这类问题涉及到“既要分组，又要排序”的情况，要能想到用窗口函数来实现。</span><br><span class="line"></span><br><span class="line">##### 代码</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>select DepartmentId,Name,Salary<br>
-from (<br>
-select *,<br>
-dense_rank() over (partition by DepartmentId<br>
-order by Salary desc) as ranking<br>
-from Employee) as a<br>
-where ranking &lt;= 3;</p>
-<pre><code>
-本文系转载
-原文链接：https://www.cnblogs.com/hugoyu/p/14008012.html</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;窗口函数&gt; over (partition by &lt;用于分组的列名&gt; order by &lt;用于排序的列名&gt;)</span><br></pre></td></tr></table></figure>
+<p>那么语法中的&lt;窗口函数&gt;都有哪些呢？</p>
+<p><code>&lt;窗口函数&gt;</code> 的位置，可以放以下两种函数：</p>
+<ul>
+<li>
+<p>专用窗口函数，包括后面要讲到的<code>rank</code>, <code>dense_rank</code>, <code>row_number</code> 等专用窗口函数。</p>
+</li>
+<li>
+<p>聚合函数，如<code>sum</code>, <code>avg</code>, <code>count</code>, <code>max</code>, <code>min</code> 等</p>
+</li>
+</ul>
+<p>因为窗口函数是对where或者group by子句处理后的结果进行操作，所以窗口函数原则上只能写在select子句中。</p>
+<h3 id="三-如何使用？">三.如何使用？</h3>
+<p>接下来，就结合实例，给大家介绍几种窗口函数的用法。</p>
+<h4 id="1-专用窗口函数rank">1.专用窗口函数<code>rank</code></h4>
+<p>例如下图，是班级表中的内容</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526013546.png" alt=""></p>
+<p>如果我们想在每个班级内按成绩排名，得到下面的结果。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526013642.jpeg" alt=""></p>
+<p>以班级“1”为例，这个班级的成绩“95”排在第1位，这个班级的“83”排在第4位。上面这个结果确实按我们的要求在每个班级内，按成绩排名了。</p>
+<p>得到上面结果的sql语句代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select *,</span><br><span class="line">   rank() over (partition by 班级</span><br><span class="line">                 order by 成绩 desc) as ranking</span><br><span class="line">from 班级表</span><br></pre></td></tr></table></figure>
+<p>我们来解释下这个sql语句里的 <code>select子句</code> 。 <code>rank</code> 是排序的函数。要求是“每个班级内按成绩排名”，这句话可以分为两部分：</p>
+<ol>
+<li>每个班级内：按班级分组</li>
+</ol>
+<p><code>partition by</code> 用来对表分组。在这个例子中，所以我们指定了按“班级”分组（<code>partition by 班级</code>）</p>
+<ol start="2">
+<li>按成绩排名</li>
+</ol>
+<p><code>order by</code> 子句的功能是对分组后的结果进行排序，默认是按照升序（<code>asc</code>）排列。在本例中（<code>order by 成绩 desc</code>）是按成绩这一列排序，加了desc关键词表示降序排列。</p>
+<p>通过下图，我们就可以理解<code>partiition by</code>（分组）和<code>order by</code>（在组内排序）的作用了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014100.jpeg" alt=""></p>
+<p>窗口函数具备了我们之前学过的<code>group by</code>子句分组的功能和<code>order by</code>子句排序的功能。那么，为什么还要用窗口函数呢？</p>
+<p>这是因为，<code>group by</code>分组汇总后改变了表的行数，一行只有一个类别。而<code>partiition by</code>和<code>rank</code>函数不会减少原表中的行数。例如下面统计每个班级的人数。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014228.jpeg" alt=""></p>
+<p>相信通过这个例子，你已经明白了这个窗口函数的使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select *,</span><br><span class="line">   rank() over (partition by 班级</span><br><span class="line">                 order by 成绩 desc) as ranking</span><br><span class="line">from 班级表</span><br></pre></td></tr></table></figure>
+<p>现在我们说回来，为什么叫“窗口”函数呢？这是因为partition by分组后的结果称为“窗口”，这里的窗口不是我们家里的门窗，而是表示“范围”的意思。</p>
+<p>** 简单来说，窗口函数有以下功能：**</p>
+<ul>
+<li>
+<p>同时具有分组和排序的功能</p>
+</li>
+<li>
+<p>不减少原表的行数</p>
+</li>
+</ul>
+<p>语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;窗口函数&gt; over (partition by &lt;用于分组的列名&gt;</span><br><span class="line">                order by &lt;用于排序的列名&gt;)</span><br></pre></td></tr></table></figure>
+<h4 id="其他专业窗口函数">其他专业窗口函数</h4>
+<p>专用窗口函数 <code>rank</code>, <code>dense_rank</code>, <code>row_number</code> 有什么区别呢？</p>
+<p>它们的区别我举个例子，你们一下就能看懂：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select *,</span><br><span class="line">   rank() over (order by 成绩 desc) as ranking,</span><br><span class="line">   dense_rank() over (order by 成绩 desc) as dese_rank,</span><br><span class="line">   row_number() over (order by 成绩 desc) as row_num</span><br><span class="line">from 班级表</span><br></pre></td></tr></table></figure>
+<p>得到结果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014556.png" alt=""></p>
+<p>从上面的结果可以看出：</p>
+<p><code>rank</code> 函数：这个例子中是5位，5位，5位，8位，也就是如果有并列名次的行，会占用下一名次的位置。比如正常排名是1，2，3，4，但是现在前3名是并列的名次，结果是：1，1，1，4。</p>
+<p><code>dense_rank</code> 函数：这个例子中是5位，5位，5位，6位，也就是如果有并列名次的行，不占用下一名次的位置。比如正常排名是1，2，3，4，但是现在前3名是并列的名次，结果是：1，1，1，2。</p>
+<p><code>row_number</code> 函数：这个例子中是5位，6位，7位，8位，也就是不考虑并列名次的情况。比如前3名是并列的名次，排名是正常的1，2，3，4。</p>
+<p>这三个函数的区别如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014717.png" alt=""></p>
+<p>最后，需要强调的一点是：在上述的这三个专用窗口函数中，函数后面的括号不需要任何参数，保持()空着就可以。</p>
+<p>现在，大家对窗口函数有一个基本了解了吗？</p>
+<h4 id="3-聚合函数作为窗口函数">3.聚合函数作为窗口函数</h4>
+<p>聚和窗口函数和上面提到的专用窗口函数用法完全相同，只需要把聚合函数写在窗口函数的位置即可，但是函数后面括号里面不能为空，需要指定聚合的列名。</p>
+<p>我们来看一下窗口函数是聚合函数时，会出来什么结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select *,</span><br><span class="line">   sum(成绩) over (order by 学号) as current_sum,</span><br><span class="line">   avg(成绩) over (order by 学号) as current_avg,</span><br><span class="line">   count(成绩) over (order by 学号) as current_count,</span><br><span class="line">   max(成绩) over (order by 学号) as current_max,</span><br><span class="line">   min(成绩) over (order by 学号) as current_min</span><br><span class="line">from 班级表</span><br></pre></td></tr></table></figure>
+<p>得到结果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014828.jpeg" alt=""></p>
+<p>有发现什么吗？我单独用sum举个例子：</p>
+<p>如上图，聚合函数 <code>sum</code> 在窗口函数中，是对自身记录、及位于自身记录以上的数据进行求和的结果。比如0004号，在使用 <code>sum</code> 窗口函数后的结果，是对0001，0002，0003，0004号的成绩求和，若是0005号，则结果是0001号~0005号成绩的求和，以此类推。</p>
+<p>不仅是 <code>sum</code> 求和，平均、计数、最大最小值，也是同理，都是针对自身记录、以及自身记录之上的所有数据进行计算，现在再结合刚才得到的结果（下图），是不是理解起来容易多了？</p>
+<p>比如0005号后面的聚合窗口函数结果是：学号0001~0005五人成绩的总和、平均、计数及最大最小值。</p>
+<p>如果想要知道所有人成绩的总和、平均等聚合结果，看最后一行即可。</p>
+<p><strong>这样使用窗口函数有什么用呢？</strong></p>
+<p>聚合函数作为窗口函数，可以在每一行的数据里直观的看到，截止到本行数据，统计数据是多少（最大值、最小值等）。同时可以看出每一行数据，对整体统计数据的影响。</p>
+<h3 id="四-注意事项">四.注意事项</h3>
+<p><code>partition</code> 子句可以省略，省略就是不指定分组，结果如下，只是按成绩由高到低进行了排序：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select *,</span><br><span class="line">   rank() over (order by 成绩 desc) as ranking</span><br><span class="line">from 班级表</span><br></pre></td></tr></table></figure>
+<p>得到结果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526015107.jpeg" alt=""></p>
+<p>但是，这就失去了窗口函数的功能，所以一般不要这么使用。</p>
+<h3 id="五-总结">五.总结</h3>
+<h4 id="1-窗口函数语法">1.窗口函数语法</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;窗口函数&gt; over (partition by &lt;用于分组的列名&gt;</span><br><span class="line">                order by &lt;用于排序的列名&gt;)</span><br><span class="line">&lt;窗口函数&gt;的位置，可以放以下两种函数：</span><br></pre></td></tr></table></figure>
+<ol>
+<li>专用窗口函数，比如rank,dense_rank,row_number等</li>
+<li>聚合函数，如sum. avg, count,max, min等</li>
+</ol>
+<h4 id="2-窗口函数有以下功能：">2.窗口函数有以下功能：</h4>
+<ol>
+<li>
+<p>同时具有分组（partition by）和排序（order by）的功能</p>
+</li>
+<li>
+<p>不减少原表的行数，所以经常用来在每组内排名</p>
+</li>
+</ol>
+<h4 id="3-注意事项">3.注意事项</h4>
+<p><strong>窗口函数原则上只能写在select子句中</strong></p>
+<h4 id="4-窗口函数使用场景">4.窗口函数使用场景</h4>
+<ul>
+<li>业务需求“在每组内排名”，比如：</li>
+</ul>
+<p>排名问题：每个部门按业绩来排名<br>
+topN问题：找出每个部门排名前N的员工进行奖励</p>
+<h5 id="实例">实例</h5>
+<p><strong>184.部门工资最高的员工</strong></p>
+<p><code>Employee</code> 表包含所有员工信息，每个员工有其对应的 Id, salary 和 department Id。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+----+-------+--------+--------------+</span><br><span class="line">| Id | Name  | Salary | DepartmentId |</span><br><span class="line">+----+-------+--------+--------------+</span><br><span class="line">| 1  | Joe   | 70000  | 1            |</span><br><span class="line">| 2  | Jim   | 90000  | 1            |</span><br><span class="line">| 3  | Henry | 80000  | 2            |</span><br><span class="line">| 4  | Sam   | 60000  | 2            |</span><br><span class="line">| 5  | Max   | 90000  | 1            |</span><br><span class="line">+----+-------+--------+--------------+</span><br></pre></td></tr></table></figure>
+<p><code>Department</code> 表包含公司所有部门的信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+----+----------+</span><br><span class="line">| Id | Name     |</span><br><span class="line">+----+----------+</span><br><span class="line">| 1  | IT       |</span><br><span class="line">| 2  | Sales    |</span><br><span class="line">+----+----------+</span><br></pre></td></tr></table></figure>
+<p>编写一个 SQL 查询，找出每个部门工资最高的员工。对于上述表，您的 SQL 查询应返回以下行（行的顺序无关紧要）。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+------------+----------+--------+</span><br><span class="line">| Department | Employee | Salary |</span><br><span class="line">+------------+----------+--------+</span><br><span class="line">| IT         | Max      | 90000  |</span><br><span class="line">| IT         | Jim      | 90000  |</span><br><span class="line">| Sales      | Henry    | 80000  |</span><br><span class="line">+------------+----------+--------+</span><br></pre></td></tr></table></figure>
+<p><strong>解释：</strong></p>
+<blockquote>
+<p>Max 和 Jim 在 IT 部门的工资都是最高的，Henry 在销售部的工资最高</p>
+</blockquote>
+<h5 id="题解">题解</h5>
+<p>经典topN问题：每组最大的N条记录。这类问题涉及到“既要分组，又要排序”的情况，要能想到用窗口函数来实现。</p>
+<h5 id="代码">代码</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select DepartmentId,Name,Salary</span><br><span class="line">from (</span><br><span class="line">   select *, </span><br><span class="line">          dense_rank() over (partition by DepartmentId</span><br><span class="line">                       order by Salary desc) as ranking</span><br><span class="line">   from Employee) as a</span><br><span class="line">where ranking &lt;= 3;</span><br></pre></td></tr></table></figure>
+<p>本文系转载<br>
+原文链接：<a href="https://www.cnblogs.com/hugoyu/p/14008012.html">https://www.cnblogs.com/hugoyu/p/14008012.html</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -828,32 +882,6 @@ where ranking &lt;= 3;</p>
       </tags>
   </entry>
   <entry>
-    <title>投资方向规划</title>
-    <url>/2021/05/10/%E6%8A%95%E8%B5%84%E6%96%B9%E5%90%91%E8%A7%84%E5%88%92/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="a384b54db6e136db1643227345eeb94420cea15cc365c88ce03421c7ab1ed5f4">f4aa9fb63d4e7fe32bfec9616c4c290016c9db424d11e2915a67b70de96af50e34a3b554139b01a88d4dc9e3586f2b75a97e9fc0a07ccad1db357b460e9df6534d600b7488b18a24ac371a3e4da48aefc2418072e262bd9ae27f23e1afcb41fe8119a970da4b69efde7b7784a76ef98013ede4d3f48ea7053014bcfe59d2b38078688abaa6bb00380519d4d5f98f8efcfaa9245afb18f1c78db313c213c56b124c1f4c331ce56b1b03c3f038ac9d8881e249a2cf92a83ddbc8cf54ccf084b6e25c458e86f68b5808b8c9bc8e4f896a10cdf6251b442f1505cf96e1a2209ee192ce8a8f21592264fbeccde91e26946e536ef048c9ffc2ad0f4610896d41d629e95d6415858dcade26d0333c733ae234f50165f06eae664d2be34214719dc18d5e</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-xray">
-      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">本篇为加密文章，请输入密码进行查看</span>
-      </label>
-      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
-        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
-        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>
-      </svg>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>浅谈 DevOps</title>
     <url>/2021/05/11/%E6%B5%85%E8%B0%88-DevOps/</url>
     <content><![CDATA[<p>听说这个词汇还是年前时候的事情 ，当时第一个反应是一种新技术的又出现了，后来经过上网查找相关的资料，大致上我认为的 <strong>DevOps</strong> 是一种 <strong>软件开发的协作关系</strong>。</p>
@@ -946,6 +974,32 @@ where ranking &lt;= 3;</p>
       </categories>
       <tags>
         <tag>思维</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>投资方向规划</title>
+    <url>/2021/05/10/%E6%8A%95%E8%B5%84%E6%96%B9%E5%90%91%E8%A7%84%E5%88%92/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="a384b54db6e136db1643227345eeb94420cea15cc365c88ce03421c7ab1ed5f4">f4aa9fb63d4e7fe32bfec9616c4c290016c9db424d11e2915a67b70de96af50e34a3b554139b01a88d4dc9e3586f2b75a97e9fc0a07ccad1db357b460e9df6534d600b7488b18a24ac371a3e4da48aefc2418072e262bd9ae27f23e1afcb41fe8119a970da4b69efde7b7784a76ef98013ede4d3f48ea7053014bcfe59d2b38078688abaa6bb00380519d4d5f98f8efcfaa9245afb18f1c78db313c213c56b124c1f4c331ce56b1b03c3f038ac9d8881e249a2cf92a83ddbc8cf54ccf084b6e25c458e86f68b5808b8c9bc8e4f896a10cdf6251b442f1505cf96e1a2209ee192ce8a8f21592264fbeccde91e26946e536ef048c9ffc2ad0f4610896d41d629e95d6415858dcade26d0333c733ae234f50165f06eae664d2be34214719dc18d5e</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-xray">
+      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">本篇为加密文章，请输入密码进行查看</span>
+      </label>
+      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
