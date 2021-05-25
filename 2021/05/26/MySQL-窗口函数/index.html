@@ -47,7 +47,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014828.jpeg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526015107.jpeg">
 <meta property="article:published_time" content="2021-05-25T17:29:51.000Z">
-<meta property="article:modified_time" content="2021-05-25T18:10:23.899Z">
+<meta property="article:modified_time" content="2021-05-25T18:13:29.523Z">
 <meta property="article:author" content="goofyww">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526013546.png">
@@ -238,7 +238,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-05-26 01:29:51 / 修改时间：02:10:23" itemprop="dateCreated datePublished" datetime="2021-05-26T01:29:51+08:00">2021-05-26</time>
+              <time title="创建时间：2021-05-26 01:29:51 / 修改时间：02:13:29" itemprop="dateCreated datePublished" datetime="2021-05-26T01:29:51+08:00">2021-05-26</time>
             </span>
 
           
@@ -277,7 +277,7 @@
 <p>因为窗口函数是对where或者group by子句处理后的结果进行操作，所以窗口函数原则上只能写在select子句中。</p>
 <h3 id="三-如何使用？">三.如何使用？</h3>
 <p>接下来，就结合实例，给大家介绍几种窗口函数的用法。</p>
-<h4 id="1-专用窗口函数rank">1.专用窗口函数<code>rank</code></h4>
+<h4 id="专用窗口函数rank">专用窗口函数<code>rank</code></h4>
 <p>例如下图，是班级表中的内容</p>
 <p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526013546.png" alt=""></p>
 <p>如果我们想在每个班级内按成绩排名，得到下面的结果。</p>
@@ -327,7 +327,7 @@
 <p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014717.png" alt=""></p>
 <p>最后，需要强调的一点是：在上述的这三个专用窗口函数中，函数后面的括号不需要任何参数，保持()空着就可以。</p>
 <p>现在，大家对窗口函数有一个基本了解了吗？</p>
-<h4 id="3-聚合函数作为窗口函数">3.聚合函数作为窗口函数</h4>
+<h4 id="聚合函数作为窗口函数">聚合函数作为窗口函数</h4>
 <p>聚和窗口函数和上面提到的专用窗口函数用法完全相同，只需要把聚合函数写在窗口函数的位置即可，但是函数后面括号里面不能为空，需要指定聚合的列名。</p>
 <p>我们来看一下窗口函数是聚合函数时，会出来什么结果：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select *,</span><br><span class="line">   sum(成绩) over (order by 学号) as current_sum,</span><br><span class="line">   avg(成绩) over (order by 学号) as current_avg,</span><br><span class="line">   count(成绩) over (order by 学号) as current_count,</span><br><span class="line">   max(成绩) over (order by 学号) as current_max,</span><br><span class="line">   min(成绩) over (order by 学号) as current_min</span><br><span class="line">from 班级表</span><br></pre></td></tr></table></figure>
@@ -347,13 +347,13 @@
 <p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526015107.jpeg" alt=""></p>
 <p>但是，这就失去了窗口函数的功能，所以一般不要这么使用。</p>
 <h3 id="五-总结">五.总结</h3>
-<h4 id="1-窗口函数语法">1.窗口函数语法</h4>
+<h4 id="窗口函数语法">窗口函数语法</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;窗口函数&gt; over (partition by &lt;用于分组的列名&gt;</span><br><span class="line">                order by &lt;用于排序的列名&gt;)</span><br><span class="line">&lt;窗口函数&gt;的位置，可以放以下两种函数：</span><br></pre></td></tr></table></figure>
 <ol>
 <li>专用窗口函数，比如rank,dense_rank,row_number等</li>
 <li>聚合函数，如sum. avg, count,max, min等</li>
 </ol>
-<h4 id="2-窗口函数有以下功能：">2.窗口函数有以下功能：</h4>
+<h4 id="窗口函数有以下功能：">窗口函数有以下功能：</h4>
 <ol>
 <li>
 <p>同时具有分组（partition by）和排序（order by）的功能</p>
@@ -362,9 +362,9 @@
 <p>不减少原表的行数，所以经常用来在每组内排名</p>
 </li>
 </ol>
-<h4 id="3-注意事项">3.注意事项</h4>
+<h4 id="注意事项">注意事项</h4>
 <p><strong>窗口函数原则上只能写在select子句中</strong></p>
-<h4 id="4-窗口函数使用场景">4.窗口函数使用场景</h4>
+<h4 id="窗口函数使用场景">窗口函数使用场景</h4>
 <ul>
 <li>业务需求“在每组内排名”，比如：</li>
 </ul>
@@ -494,7 +494,7 @@ topN问题：找出每个部门排名前N的员工进行奖励</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">一.窗口函数有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C-%E4%BB%80%E4%B9%88%E6%98%AF%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">二.什么是窗口函数？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">三.如何使用？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%93%E7%94%A8%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0rank"><span class="nav-number">3.1.</span> <span class="nav-text">1.专用窗口函数rank</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E4%B8%93%E4%B8%9A%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">其他专业窗口函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">3.聚合函数作为窗口函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">四.注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94-%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">五.总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E8%AF%AD%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">1.窗口函数语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%9C%89%E4%BB%A5%E4%B8%8B%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="nav-number">5.2.</span> <span class="nav-text">2.窗口函数有以下功能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">5.3.</span> <span class="nav-text">3.注意事项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">5.4.</span> <span class="nav-text">4.窗口函数使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">5.4.1.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">5.4.2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">5.4.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">一.窗口函数有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C-%E4%BB%80%E4%B9%88%E6%98%AF%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">二.什么是窗口函数？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">三.如何使用？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%93%E7%94%A8%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0rank"><span class="nav-number">3.1.</span> <span class="nav-text">专用窗口函数rank</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E4%B8%93%E4%B8%9A%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">其他专业窗口函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">聚合函数作为窗口函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">四.注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94-%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">五.总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E8%AF%AD%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">窗口函数语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%9C%89%E4%BB%A5%E4%B8%8B%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="nav-number">5.2.</span> <span class="nav-text">窗口函数有以下功能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">5.3.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">5.4.</span> <span class="nav-text">窗口函数使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">5.4.1.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">5.4.2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">5.4.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

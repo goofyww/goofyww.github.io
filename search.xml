@@ -551,7 +551,7 @@ java8 新特性，用它来<strong>封装可能为空的引用，防止空指针
 <p>因为窗口函数是对where或者group by子句处理后的结果进行操作，所以窗口函数原则上只能写在select子句中。</p>
 <h3 id="三-如何使用？">三.如何使用？</h3>
 <p>接下来，就结合实例，给大家介绍几种窗口函数的用法。</p>
-<h4 id="1-专用窗口函数rank">1.专用窗口函数<code>rank</code></h4>
+<h4 id="专用窗口函数rank">专用窗口函数<code>rank</code></h4>
 <p>例如下图，是班级表中的内容</p>
 <p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526013546.png" alt=""></p>
 <p>如果我们想在每个班级内按成绩排名，得到下面的结果。</p>
@@ -601,7 +601,7 @@ java8 新特性，用它来<strong>封装可能为空的引用，防止空指针
 <p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526014717.png" alt=""></p>
 <p>最后，需要强调的一点是：在上述的这三个专用窗口函数中，函数后面的括号不需要任何参数，保持()空着就可以。</p>
 <p>现在，大家对窗口函数有一个基本了解了吗？</p>
-<h4 id="3-聚合函数作为窗口函数">3.聚合函数作为窗口函数</h4>
+<h4 id="聚合函数作为窗口函数">聚合函数作为窗口函数</h4>
 <p>聚和窗口函数和上面提到的专用窗口函数用法完全相同，只需要把聚合函数写在窗口函数的位置即可，但是函数后面括号里面不能为空，需要指定聚合的列名。</p>
 <p>我们来看一下窗口函数是聚合函数时，会出来什么结果：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select *,</span><br><span class="line">   sum(成绩) over (order by 学号) as current_sum,</span><br><span class="line">   avg(成绩) over (order by 学号) as current_avg,</span><br><span class="line">   count(成绩) over (order by 学号) as current_count,</span><br><span class="line">   max(成绩) over (order by 学号) as current_max,</span><br><span class="line">   min(成绩) over (order by 学号) as current_min</span><br><span class="line">from 班级表</span><br></pre></td></tr></table></figure>
@@ -621,13 +621,13 @@ java8 新特性，用它来<strong>封装可能为空的引用，防止空指针
 <p><img src="https://cdn.jsdelivr.net/gh/goofyww/blog-image/img/20210526015107.jpeg" alt=""></p>
 <p>但是，这就失去了窗口函数的功能，所以一般不要这么使用。</p>
 <h3 id="五-总结">五.总结</h3>
-<h4 id="1-窗口函数语法">1.窗口函数语法</h4>
+<h4 id="窗口函数语法">窗口函数语法</h4>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;窗口函数&gt; over (partition by &lt;用于分组的列名&gt;</span><br><span class="line">                order by &lt;用于排序的列名&gt;)</span><br><span class="line">&lt;窗口函数&gt;的位置，可以放以下两种函数：</span><br></pre></td></tr></table></figure>
 <ol>
 <li>专用窗口函数，比如rank,dense_rank,row_number等</li>
 <li>聚合函数，如sum. avg, count,max, min等</li>
 </ol>
-<h4 id="2-窗口函数有以下功能：">2.窗口函数有以下功能：</h4>
+<h4 id="窗口函数有以下功能：">窗口函数有以下功能：</h4>
 <ol>
 <li>
 <p>同时具有分组（partition by）和排序（order by）的功能</p>
@@ -636,9 +636,9 @@ java8 新特性，用它来<strong>封装可能为空的引用，防止空指针
 <p>不减少原表的行数，所以经常用来在每组内排名</p>
 </li>
 </ol>
-<h4 id="3-注意事项">3.注意事项</h4>
+<h4 id="注意事项">注意事项</h4>
 <p><strong>窗口函数原则上只能写在select子句中</strong></p>
-<h4 id="4-窗口函数使用场景">4.窗口函数使用场景</h4>
+<h4 id="窗口函数使用场景">窗口函数使用场景</h4>
 <ul>
 <li>业务需求“在每组内排名”，比如：</li>
 </ul>
@@ -882,6 +882,32 @@ topN问题：找出每个部门排名前N的员工进行奖励</p>
       </tags>
   </entry>
   <entry>
+    <title>投资方向规划</title>
+    <url>/2021/05/10/%E6%8A%95%E8%B5%84%E6%96%B9%E5%90%91%E8%A7%84%E5%88%92/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="a384b54db6e136db1643227345eeb94420cea15cc365c88ce03421c7ab1ed5f4">f4aa9fb63d4e7fe32bfec9616c4c290016c9db424d11e2915a67b70de96af50e34a3b554139b01a88d4dc9e3586f2b75a97e9fc0a07ccad1db357b460e9df6534d600b7488b18a24ac371a3e4da48aefc2418072e262bd9ae27f23e1afcb41fe8119a970da4b69efde7b7784a76ef98013ede4d3f48ea7053014bcfe59d2b38078688abaa6bb00380519d4d5f98f8efcfaa9245afb18f1c78db313c213c56b124c1f4c331ce56b1b03c3f038ac9d8881e249a2cf92a83ddbc8cf54ccf084b6e25c458e86f68b5808b8c9bc8e4f896a10cdf6251b442f1505cf96e1a2209ee192ce8a8f21592264fbeccde91e26946e536ef048c9ffc2ad0f4610896d41d629e95d6415858dcade26d0333c733ae234f50165f06eae664d2be34214719dc18d5e</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-xray">
+      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">本篇为加密文章，请输入密码进行查看</span>
+      </label>
+      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>浅谈 DevOps</title>
     <url>/2021/05/11/%E6%B5%85%E8%B0%88-DevOps/</url>
     <content><![CDATA[<p>听说这个词汇还是年前时候的事情 ，当时第一个反应是一种新技术的又出现了，后来经过上网查找相关的资料，大致上我认为的 <strong>DevOps</strong> 是一种 <strong>软件开发的协作关系</strong>。</p>
@@ -974,32 +1000,6 @@ topN问题：找出每个部门排名前N的员工进行奖励</p>
       </categories>
       <tags>
         <tag>思维</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>投资方向规划</title>
-    <url>/2021/05/10/%E6%8A%95%E8%B5%84%E6%96%B9%E5%90%91%E8%A7%84%E5%88%92/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="a384b54db6e136db1643227345eeb94420cea15cc365c88ce03421c7ab1ed5f4">f4aa9fb63d4e7fe32bfec9616c4c290016c9db424d11e2915a67b70de96af50e34a3b554139b01a88d4dc9e3586f2b75a97e9fc0a07ccad1db357b460e9df6534d600b7488b18a24ac371a3e4da48aefc2418072e262bd9ae27f23e1afcb41fe8119a970da4b69efde7b7784a76ef98013ede4d3f48ea7053014bcfe59d2b38078688abaa6bb00380519d4d5f98f8efcfaa9245afb18f1c78db313c213c56b124c1f4c331ce56b1b03c3f038ac9d8881e249a2cf92a83ddbc8cf54ccf084b6e25c458e86f68b5808b8c9bc8e4f896a10cdf6251b442f1505cf96e1a2209ee192ce8a8f21592264fbeccde91e26946e536ef048c9ffc2ad0f4610896d41d629e95d6415858dcade26d0333c733ae234f50165f06eae664d2be34214719dc18d5e</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-xray">
-      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">本篇为加密文章，请输入密码进行查看</span>
-      </label>
-      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
-        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
-        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>
-      </svg>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
